@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arrastar e Soltar - Arquitetura Computacional</title>
+<style>
+:root{--az:#c2467a;--ok:#2e9e5b;--no:#d6335c;--tx:#3b1f2e}
+*{box-sizing:border-box}
+body{margin:0;padding:16px;font-family:system-ui,Arial,sans-serif;background:#fff7fa;color:var(--tx)}
+main{max-width:720px;margin:0 auto}
+h1{font-size:1.4rem;color:var(--az);margin:0 0 4px}
+p{margin:0 0 12px}
+#banco{display:flex;flex-wrap:wrap;gap:8px;min-height:52px;padding:10px;background:#fdeef4;border-radius:10px;margin-bottom:14px}
+.chip{padding:8px 16px;background:#f9d3e3;color:#7a2a4d;border:1.5px solid #f2a7c3;font-weight:700;border-radius:20px;cursor:grab;touch-action:none;user-select:none;position:relative;z-index:1}
+.chip.sel{outline:3px solid #f5a623}
+.chip.arrastando{z-index:10;opacity:.9;box-shadow:0 6px 16px #0004;cursor:grabbing}
+.linha{display:flex;gap:10px;align-items:stretch;margin-bottom:10px}
+.pista{flex:1;background:#fff;border:1.5px solid #e3b5c8;border-radius:10px;padding:10px;font-size:.95rem}
+.zona{width:170px;min-height:52px;border:2px dashed #e3b5c8;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#fff;color:#e3b5c8;font-size:.8rem}
+.zona.certa{border:2px solid var(--ok);background:#c9f0d8}
+.zona.errada{border:2px solid var(--no);background:#ffd3dd}
+.barra{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+button{font:inherit;font-weight:600;padding:8px 18px;border:0;border-radius:8px;background:#f9d3e3;color:#7a2a4d;cursor:pointer}
+button.sec{background:#fff;color:#7a2a4d;border:2px solid #f2a7c3}
+.btn-link{display:inline-block;font-weight:600;padding:8px 18px;border-radius:8px;background:#fff;color:#7a2a4d;border:2px solid #f2a7c3;text-decoration:none}
+.btn-link:hover{background:#fdeef4}
+@media(max-width:520px){.linha{flex-direction:column}.zona{width:100%}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Arraste o termo para a pista certa</h1>
+  <p>Arraste (ou toque no termo e depois na pista) para encaixar cada termo na definição correta.</p>
+  <div id="banco"></div>
+  <div id="linhas"></div>
+  <div class="barra">
+    <button id="conferir" type="button">Conferir</button>
+    <button id="reiniciar" type="button" class="sec">Reiniciar</button>
+    <a class="btn-link" href="index.html">← Voltar para a cruzadinha</a>
+    <strong id="placar" role="status" aria-live="polite"></strong>
+  </div>
+</main>
+<script>
+const ITENS = [
+  {t: "CLOCK", p: "Sinal que dá o ritmo de funcionamento da CPU, medido em hertz."},
+  {t: "FIRMWARE", p: "Programa gravado em memória não volátil que controla o hardware de um dispositivo."},
+  {t: "BIT", p: "Menor unidade de informação do computador, com valor 0 ou 1."},
+  {t: "BYTE", p: "Conjunto de 8 bits, usado para representar um caractere."},
+  {t: "PERIFERICO", p: "Dispositivo externo ligado ao computador, como teclado, mouse ou impressora."}
+];
+const banco = document.getElementById("banco"), linhas = document.getElementById("linhas"), placar = document.getElementById("placar");
+let selecionado = null;
+
+ITENS.forEach(it => {
+  const l = document.createElement("div"); l.className = "linha";
+  l.innerHTML = '<div class="pista"></div><div class="zona" data-t="' + it.t + '">solte aqui</div>';
+  l.querySelector(".pista").textContent = it.p;
+  linhas.appendChild(l);
+});
+const zonas = [...document.querySelectorAll(".zona")];
+
+function embaralhar() {
+  [...ITENS].sort(() => Math.random() - .5).forEach(it => {
+    const c = document.createElement("div"); c.className = "chip"; c.textContent = it.t; c.dataset.t = it.t;
+    banco.appendChild(c); ativar(c);
+  });
+}
+function colocar(chip, zona) {
+  limpar();
+  const ocupante = zona.querySelector(".chip");
+  if (ocupante) banco.appendChild(ocupante);
+  zona.textContent = ""; zona.appendChild(chip);
+  desmarcar();
+}
+function devolver(chip) {
+  const z = chip.parentElement;
+  banco.appendChild(chip);
+  if (z && z.classList.contains("zona") && !z.querySelector(".chip")) z.textContent = "solte aqui";
+}
+function desmarcar() { if (selecionado) selecionado.classList.remove("sel"); selecionado = null; }
+function limpar() { zonas.forEach(z => z.classList.remove("certa", "errada")); placar.textContent = ""; }
+function sobre(x, y) { return document.elementsFromPoint(x, y).find(e => e.classList.contains("zona") || e.id === "banco"); }
+
+function ativar(chip) {
+  chip.addEventListener("pointerdown", e => {
+    e.preventDefault(); chip.setPointerCapture(e.pointerId);
+    const x0 = e.clientX, y0 = e.clientY; let moveu = false;
+    const mover = ev => {
+      const dx = ev.clientX - x0, dy = ev.clientY - y0;
+      if (Math.abs(dx) + Math.abs(dy) > 6) moveu = true;
+      if (moveu) { chip.classList.add("arrastando"); chip.style.transform = `translate(${dx}px,${dy}px)`; }
+    };
+    const soltar = ev => {
+      chip.removeEventListener("pointermove", mover); chip.removeEventListener("pointerup", soltar);
+      chip.classList.remove("arrastando"); chip.style.transform = "";
+      if (moveu) {
+        const alvo = sobre(ev.clientX, ev.clientY), origem = chip.parentElement;
+        if (alvo && alvo.classList.contains("zona")) {
+          if (origem.classList.contains("zona") && alvo.querySelector(".chip")) {
+            const outro = alvo.querySelector(".chip"); limpar(); origem.textContent = ""; origem.appendChild(outro); alvo.textContent = ""; alvo.appendChild(chip);
+          } else colocar(chip, alvo);
+        } else { limpar(); devolver(chip); }
+      } else { // toque: seleciona
+        desmarcar(); selecionado = chip; chip.classList.add("sel");
+      }
+    };
+    chip.addEventListener("pointermove", mover); chip.addEventListener("pointerup", soltar);
+  });
+}
+zonas.forEach(z => z.addEventListener("click", e => { if (selecionado && !e.target.classList.contains("chip")) colocar(selecionado, z); }));
+
+document.getElementById("conferir").addEventListener("click", () => {
+  limpar(); let ok = 0;
+  zonas.forEach(z => {
+    const c = z.querySelector(".chip");
+    if (!c) return;
+    const certo = c.dataset.t === z.dataset.t;
+    z.classList.add(certo ? "certa" : "errada"); if (certo) ok++;
+  });
+  placar.textContent = ok + " de " + ITENS.length + " palavras" + (ok === ITENS.length ? " 🎉 Parabéns!" : "");
+});
+document.getElementById("reiniciar").addEventListener("click", () => {
+  limpar(); desmarcar();
+  zonas.forEach(z => { const c = z.querySelector(".chip"); if (c) devolver(c); z.textContent = "solte aqui"; });
+  placar.textContent = "0 de " + ITENS.length + " palavras";
+});
+embaralhar();
+placar.textContent = "0 de " + ITENS.length + " palavras";
+</script>
+</body>
+</html>

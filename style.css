@@ -34,3 +34,5 @@ button:focus-visible{outline:3px solid #f5a623}
 .pistas li.ok .marca::after{content:" ✔ certa";color:var(--ok);font-style:normal;font-weight:700}
 .pistas li.erro .marca::after{content:" ✘ errada";color:var(--no);font-style:normal;font-weight:700}
 @media(max-width:600px){:root{--cel:28px}.celula input{font-size:.95rem}}
+.btn-link{display:inline-block;font-weight:600;padding:8px 18px;border-radius:8px;background:#fff;color:#7a2a4d;border:2px solid #f2a7c3;text-decoration:none}
+.btn-link:hover{background:#fdeef4}
