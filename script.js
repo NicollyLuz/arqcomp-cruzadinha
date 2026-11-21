@@ -4,112 +4,112 @@ const PALAVRAS = [
   "r": 1,
   "c": 0,
   "d": "H",
-  "clue": "Chip que reúne processador, memória e portas de entrada e saída, como no Arduino."
+  "clue": "Chip pequeno com processador, memória e portas, usado no Arduino."
  },
  {
   "a": "UC",
   "r": 0,
   "c": 2,
   "d": "V",
-  "clue": "Parte da CPU que coordena e comanda o trabalho dos outros componentes."
+  "clue": "Parte da CPU que manda os outros componentes trabalharem."
  },
  {
   "a": "DMA",
   "r": 0,
   "c": 0,
   "d": "V",
-  "clue": "Permite que periféricos acessem a memória sem passar pela CPU."
+  "clue": "Deixa um dispositivo ler e gravar na memória sem passar pela CPU."
  },
  {
   "a": "REGISTRADORES",
   "r": 1,
   "c": 9,
   "d": "V",
-  "clue": "Minúsculas e velocíssimas áreas dentro da CPU que guardam os dados do momento."
+  "clue": "Pequenos espaços dentro da CPU que guardam dados na hora."
  },
  {
   "a": "ULA",
   "r": 0,
   "c": 11,
   "d": "V",
-  "clue": "Circuito dentro da CPU que soma, subtrai e compara valores."
+  "clue": "Parte da CPU que faz as contas e compara valores."
  },
  {
   "a": "ROM",
   "r": 7,
   "c": 9,
   "d": "H",
-  "clue": "Memória não volátil gravada na fabricação, que guarda o firmware básico."
+  "clue": "Memória que já vem gravada de fábrica e não se apaga."
  },
  {
   "a": "MEMORIADEMASSA",
   "r": 12,
   "c": 1,
   "d": "H",
-  "clue": "Guarda grandes volumes de dados de modo permanente, como HD e SSD."
+  "clue": "Onde ficam guardados arquivos e programas, como no HD e no SSD."
  },
  {
   "a": "EEPROM",
   "r": 7,
   "c": 1,
   "d": "V",
-  "clue": "Memória não volátil que pode ser apagada e regravada eletricamente, byte a byte."
+  "clue": "Memória que mantém tudo sem energia e pode ser apagada com eletricidade."
  },
  {
   "a": "DUALCORE",
   "r": 10,
   "c": 4,
   "d": "H",
-  "clue": "Processador com dois núcleos independentes."
+  "clue": "Processador com dois núcleos."
  },
  {
   "a": "FLASH",
   "r": 9,
   "c": 13,
   "d": "V",
-  "clue": "Memória não volátil apagada em blocos, usada em pen drives e cartões."
+  "clue": "Memória que guarda sem energia e é apagada por blocos, como no pen drive."
  },
  {
   "a": "ADDRESSBUS",
   "r": 5,
   "c": 0,
   "d": "H",
-  "clue": "Via de sentido único em que a CPU indica a posição da memória a acessar."
+  "clue": "Caminho que leva da CPU o local da memória que será acessado."
  },
  {
   "a": "DATABUS",
   "r": 1,
   "c": 13,
   "d": "V",
-  "clue": "Via de mão dupla que transporta as informações entre CPU, memória e periféricos."
+  "clue": "Caminho de ida e volta das informações entre CPU, memória e dispositivos."
  },
  {
   "a": "CPU",
   "r": 1,
   "c": 5,
   "d": "V",
-  "clue": "Cérebro do computador: busca, decodifica e executa as instruções dos programas."
+  "clue": "É o cérebro do computador: executa as instruções dos programas."
  },
  {
   "a": "QUADCORE",
   "r": 7,
   "c": 4,
   "d": "V",
-  "clue": "Processador com quatro núcleos independentes."
+  "clue": "Processador com quatro núcleos."
  },
  {
   "a": "RAM",
   "r": 4,
   "c": 0,
   "d": "V",
-  "clue": "Memória volátil de acesso rápido que guarda programas e dados em uso."
+  "clue": "Memória onde ficam os programas abertos; apaga ao desligar."
  },
  {
   "a": "CACHE",
   "r": 4,
   "c": 12,
   "d": "H",
-  "clue": "Memória pequena e veloz entre CPU e RAM que guarda o que é mais usado."
+  "clue": "Memória rápida perto da CPU que guarda o que ela mais usa."
  }
 ];
 const LINHAS = 15, COLUNAS = 17;
