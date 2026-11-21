@@ -1,4 +1,4 @@
-:root{--cel:34px;--bg:#f5f7fb;--tx:#1d2540;--az:#1f5fbf;--ok:#2e9e5b;--no:#d6335c;--bd:#9aa6c0;--sel:#dbe8ff}
+:root{--cel:34px;--bg:#fff7fa;--tx:#3b1f2e;--az:#c2467a;--ok:#2e9e5b;--no:#d6335c;--bd:#e3b5c8;--sel:#fde4ee}
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,Arial,sans-serif;background:var(--bg);color:var(--tx);padding:16px}
 header{max-width:1200px;margin:0 auto 12px}
@@ -7,8 +7,8 @@ header p{margin:0}
 main{max-width:1200px;margin:0 auto;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
 .jogo{flex:0 1 auto;max-width:100%}
 .barra{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
-button{font:inherit;font-weight:600;padding:8px 18px;border:0;border-radius:8px;background:var(--az);color:#fff;cursor:pointer}
-button.sec{background:#fff;color:var(--az);border:2px solid var(--az)}
+button{font:inherit;font-weight:600;padding:8px 18px;border:0;border-radius:8px;background:#f9d3e3;color:#7a2a4d;cursor:pointer}
+button.sec{background:#fff;color:#7a2a4d;border:2px solid #f2a7c3}
 button:focus-visible{outline:3px solid #f5a623}
 #placar{color:var(--tx)}
 .rolagem{overflow-x:auto;padding-bottom:6px}
@@ -26,8 +26,8 @@ button:focus-visible{outline:3px solid #f5a623}
 .pistas h2{margin:0 0 6px;font-size:1.1rem;color:var(--az);border-bottom:2px solid var(--az)}
 .pistas ol{list-style:none;margin:0 0 16px;padding:0}
 .pistas li{padding:5px 8px;border-radius:6px;cursor:pointer;line-height:1.35;font-size:.92rem}
-.pistas li:hover{background:#e8eefb}
-.pistas li em{color:#6a7592;font-size:.8rem}
+.pistas li:hover{background:#fdeef4}
+.pistas li em{color:#9a6a80;font-size:.8rem}
 .pistas li.sel{background:var(--sel)}
 .pistas li.ok{border-left:5px solid var(--ok)}
 .pistas li.erro{border-left:5px solid var(--no)}
