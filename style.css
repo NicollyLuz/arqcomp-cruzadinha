@@ -1,0 +1,36 @@
+:root{--cel:34px;--bg:#f5f7fb;--tx:#1d2540;--az:#1f5fbf;--ok:#2e9e5b;--no:#d6335c;--bd:#9aa6c0;--sel:#dbe8ff}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Arial,sans-serif;background:var(--bg);color:var(--tx);padding:16px}
+header{max-width:1200px;margin:0 auto 12px}
+h1{margin:0 0 6px;font-size:1.5rem;color:var(--az)}
+header p{margin:0}
+main{max-width:1200px;margin:0 auto;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.jogo{flex:0 1 auto;max-width:100%}
+.barra{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+button{font:inherit;font-weight:600;padding:8px 18px;border:0;border-radius:8px;background:var(--az);color:#fff;cursor:pointer}
+button.sec{background:#fff;color:var(--az);border:2px solid var(--az)}
+button:focus-visible{outline:3px solid #f5a623}
+#placar{color:var(--tx)}
+.rolagem{overflow-x:auto;padding-bottom:6px}
+#tabuleiro{display:grid;gap:2px;width:max-content}
+.vazia{width:var(--cel);height:var(--cel)}
+.celula{position:relative;width:var(--cel);height:var(--cel);background:#fff;border:1.5px solid var(--bd)}
+.celula input{width:100%;height:100%;border:0;background:transparent;text-align:center;text-transform:uppercase;font:700 1.1rem system-ui;color:var(--tx);padding:6px 0 0;caret-color:transparent;cursor:pointer}
+.celula input:focus{outline:none}
+.num{position:absolute;top:1px;left:2px;font-size:.6rem;font-weight:700;color:var(--az);pointer-events:none}
+.celula.ativa{background:var(--sel)}
+.celula.foco{background:#ffe29a}
+.celula.certa{background:#c9f0d8;border-color:var(--ok)}
+.celula.errada{background:#ffd3dd;border-color:var(--no)}
+.pistas{flex:1 1 320px;min-width:280px}
+.pistas h2{margin:0 0 6px;font-size:1.1rem;color:var(--az);border-bottom:2px solid var(--az)}
+.pistas ol{list-style:none;margin:0 0 16px;padding:0}
+.pistas li{padding:5px 8px;border-radius:6px;cursor:pointer;line-height:1.35;font-size:.92rem}
+.pistas li:hover{background:#e8eefb}
+.pistas li em{color:#6a7592;font-size:.8rem}
+.pistas li.sel{background:var(--sel)}
+.pistas li.ok{border-left:5px solid var(--ok)}
+.pistas li.erro{border-left:5px solid var(--no)}
+.pistas li.ok .marca::after{content:" ✔ certa";color:var(--ok);font-style:normal;font-weight:700}
+.pistas li.erro .marca::after{content:" ✘ errada";color:var(--no);font-style:normal;font-weight:700}
+@media(max-width:600px){:root{--cel:28px}.celula input{font-size:.95rem}}
